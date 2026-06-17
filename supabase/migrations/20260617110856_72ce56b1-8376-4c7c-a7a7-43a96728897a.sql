@@ -1,0 +1,2 @@
+DROP POLICY IF EXISTS "Wardrobe public read" ON storage.objects;
+CREATE POLICY "Wardrobe owner read" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'wardrobe' AND auth.uid()::text = (storage.foldername(name))[1]);
