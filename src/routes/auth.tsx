@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Sign in — Maison" }] }),
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signup");
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -66,6 +67,25 @@ function AuthPage() {
             {mode === "signup" ? "Start curating your closet today." : "Sign in to your collection."}
           </p>
 
+          <div className="mt-6 flex justify-center">
+            <Tabs value={mode} onValueChange={(v) => setMode(v as "signin" | "signup")} className="w-auto">
+              <TabsList className="h-auto rounded-full bg-transparent p-1 gap-1">
+                <TabsTrigger
+                  value="signin"
+                  className="rounded-full px-6 py-2 text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground transition-all"
+                >
+                  Sign in
+                </TabsTrigger>
+                <TabsTrigger
+                  value="signup"
+                  className="rounded-full px-6 py-2 text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground transition-all"
+                >
+                  Get started
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
           <form onSubmit={submit} className="mt-8 space-y-4">
             {mode === "signup" && (
               <div className="space-y-1.5">
@@ -85,14 +105,6 @@ function AuthPage() {
               {loading ? "Please wait..." : mode === "signup" ? "Create wardrobe" : "Sign in"}
             </Button>
           </form>
-
-          <button
-            type="button"
-            onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
-            className="mt-6 w-full text-center text-sm text-muted-foreground hover:text-foreground"
-          >
-            {mode === "signup" ? "Already have an account? Sign in" : "New here? Create an account"}
-          </button>
         </div>
       </main>
     </div>
