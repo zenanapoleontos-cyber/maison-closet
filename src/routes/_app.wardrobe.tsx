@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { CATEGORIES, SEASONS, type ClothingItem, getSignedImageUrl } from "@/lib/wardrobe";
+import { CATEGORIES, SEASONS, COLORS, type ClothingItem, getSignedImageUrl } from "@/lib/wardrobe";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -119,14 +119,14 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [category, setCategory] = useState<string>("Tops");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState<string>(COLORS[0]);
   const [season, setSeason] = useState<string>("All year");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const reset = () => {
-    setFile(null); setPreview(""); setCategory("Tops"); setColor(""); setSeason("All year"); setNotes("");
+    setFile(null); setPreview(""); setCategory("Tops"); setColor(COLORS[0]); setSeason("All year"); setNotes("");
   };
 
   const onFile = (f: File | null) => {
@@ -198,8 +198,11 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="color">Colour</Label>
-            <Input id="color" value={color} onChange={(e) => setColor(e.target.value)} placeholder="e.g. blush pink" />
+            <Label>Colour</Label>
+            <Select value={color} onValueChange={setColor}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>{COLORS.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-1.5">
