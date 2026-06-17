@@ -14,7 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clothing_items: {
+        Row: {
+          category: string
+          color: string | null
+          created_at: string
+          id: string
+          image_url: string
+          notes: string | null
+          season: string | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          notes?: string | null
+          season?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          notes?: string | null
+          season?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      outfits: {
+        Row: {
+          created_at: string
+          generated_by_ai: boolean
+          id: string
+          item_ids: string[]
+          notes: string | null
+          occasion: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          generated_by_ai?: boolean
+          id?: string
+          item_ids?: string[]
+          notes?: string | null
+          occasion?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          generated_by_ai?: boolean
+          id?: string
+          item_ids?: string[]
+          notes?: string | null
+          occasion?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
