@@ -13,7 +13,7 @@ type Outfit = { id: string; title: string; occasion: string | null; item_ids: st
 type ScheduleRow = { id: string; date: string; outfit_id: string };
 
 export const Route = createFileRoute("/_app/calendar")({
-  head: () => ({ meta: [{ title: "Calendar — Maison" }] }),
+  head: () => ({ meta: [{ title: "Calendar — MyWeekly Wardrobe" }] }),
   component: CalendarPage,
 });
 

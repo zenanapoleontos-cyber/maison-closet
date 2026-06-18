@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Maison" }] }),
+  head: () => ({ meta: [{ title: "Sign in — MyWeekly Wardrobe" }] }),
   component: AuthPage,
 });
 
@@ -39,7 +39,7 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Welcome to Maison!");
+        toast.success("Welcome to MyWeekly Wardrobe!");
         navigate({ to: "/wardrobe" });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -56,7 +56,7 @@ function AuthPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="mx-auto w-full max-w-6xl px-6 py-6">
-        <Link to="/" className="font-display text-2xl">Maison</Link>
+        <Link to="/" className="font-display text-2xl">MyWeekly Wardrobe</Link>
       </header>
       <main className="flex-1 flex items-center justify-center px-6 pb-16">
         <div className="w-full max-w-md rounded-3xl border bg-card/80 backdrop-blur p-8 shadow-soft">

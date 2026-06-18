@@ -39,7 +39,7 @@ function AppLayout() {
     <div className="min-h-screen">
       <header className="sticky top-0 z-30 border-b bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link to="/" className="font-display text-2xl">Maison</Link>
+          <Link to="/" className="font-display text-2xl">MyWeekly Wardrobe</Link>
           <nav className="flex items-center gap-1">
             {links.map(({ to, label, icon: Icon }) => (
               <Link key={to} to={to} className={cn(

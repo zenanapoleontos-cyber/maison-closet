@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Plus, Trash2, ImageIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_app/wardrobe")({
-  head: () => ({ meta: [{ title: "Wardrobe — Maison" }] }),
+  head: () => ({ meta: [{ title: "Wardrobe — MyWeekly Wardrobe" }] }),
   component: WardrobePage,
 });
 
