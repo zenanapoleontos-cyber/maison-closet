@@ -22,7 +22,7 @@ type Outfit = {
 };
 
 export const Route = createFileRoute("/_app/outfits")({
-  head: () => ({ meta: [{ title: "Outfits — Maison" }] }),
+  head: () => ({ meta: [{ title: "Outfits — MyWeekly Wardrobe" }] }),
   component: OutfitsPage,
 });
 
@@ -108,7 +108,7 @@ function OutfitsPage() {
       ) : outfits.length === 0 ? (
         <div className="rounded-3xl border bg-card/60 p-12 text-center">
           <h3 className="font-display text-2xl">No outfits yet</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Describe an occasion above and Maison will build a look from your wardrobe.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Describe an occasion above and MyWeekly Wardrobe will build a look from your wardrobe.</p>
         </div>
       ) : (
         <div className="space-y-6">

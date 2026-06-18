@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Maison — Your Online Wardrobe" },
+      { title: "MyWeekly Wardrobe — Your Online Wardrobe" },
       { name: "description", content: "Your private digital wardrobe. Upload your clothes, build outfits, and let AI style you." },
-      { property: "og:title", content: "Maison — Your Online Wardrobe" },
+      { property: "og:title", content: "MyWeekly Wardrobe — Your Online Wardrobe" },
       { property: "og:description", content: "Your private digital wardrobe with AI-styled outfits." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
