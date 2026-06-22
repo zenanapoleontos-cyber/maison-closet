@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppWardrobeRouteImport } from './routes/_app.wardrobe'
+import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppOutfitsRouteImport } from './routes/_app.outfits'
 import { Route as AppCalendarRouteImport } from './routes/_app.calendar'
 
@@ -35,6 +36,11 @@ const AppWardrobeRoute = AppWardrobeRouteImport.update({
   path: '/wardrobe',
   getParentRoute: () => AppRoute,
 } as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppOutfitsRoute = AppOutfitsRouteImport.update({
   id: '/outfits',
   path: '/outfits',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/calendar': typeof AppCalendarRoute
   '/outfits': typeof AppOutfitsRoute
+  '/profile': typeof AppProfileRoute
   '/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRoutesByTo {
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/calendar': typeof AppCalendarRoute
   '/outfits': typeof AppOutfitsRoute
+  '/profile': typeof AppProfileRoute
   '/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_app/calendar': typeof AppCalendarRoute
   '/_app/outfits': typeof AppOutfitsRoute
+  '/_app/profile': typeof AppProfileRoute
   '/_app/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/calendar' | '/outfits' | '/wardrobe'
+  fullPaths: '/' | '/auth' | '/calendar' | '/outfits' | '/profile' | '/wardrobe'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/calendar' | '/outfits' | '/wardrobe'
+  to: '/' | '/auth' | '/calendar' | '/outfits' | '/profile' | '/wardrobe'
   id:
     | '__root__'
     | '/'
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_app/calendar'
     | '/_app/outfits'
+    | '/_app/profile'
     | '/_app/wardrobe'
   fileRoutesById: FileRoutesById
 }
@@ -120,6 +130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWardrobeRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/outfits': {
       id: '/_app/outfits'
       path: '/outfits'
@@ -140,12 +157,14 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppCalendarRoute: typeof AppCalendarRoute
   AppOutfitsRoute: typeof AppOutfitsRoute
+  AppProfileRoute: typeof AppProfileRoute
   AppWardrobeRoute: typeof AppWardrobeRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppCalendarRoute: AppCalendarRoute,
   AppOutfitsRoute: AppOutfitsRoute,
+  AppProfileRoute: AppProfileRoute,
   AppWardrobeRoute: AppWardrobeRoute,
 }
 
