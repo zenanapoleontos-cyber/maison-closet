@@ -83,6 +83,15 @@
   --lavender: oklch(0.85 0.08 300);
   --mauve: oklch(0.62 0.18 320);
 
+  /* Whering-inspired tile palette */
+  --tile-cyan: oklch(0.78 0.15 220);
+  --tile-purple: oklch(0.78 0.13 300);
+  --tile-lime: oklch(0.88 0.22 130);
+  --tile-orange: oklch(0.76 0.17 50);
+  --ink: oklch(0.15 0.02 320);
+  --neon: oklch(0.92 0.24 130);
+  --neon-foreground: oklch(0.15 0.02 320);
+
   --gradient-feminine: linear-gradient(135deg, oklch(0.95 0.05 350) 0%, oklch(0.88 0.08 310) 50%, oklch(0.82 0.12 290) 100%);
   --gradient-soft: linear-gradient(180deg, oklch(0.985 0.012 340) 0%, oklch(0.93 0.04 330) 100%);
   --shadow-soft: 0 10px 40px -12px oklch(0.62 0.18 320 / 0.18);
