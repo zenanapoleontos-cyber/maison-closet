@@ -4,6 +4,11 @@ import "@fontsource/cormorant-garamond/600.css";
 import "@fontsource/karla/400.css";
 import "@fontsource/karla/500.css";
 import "@fontsource/karla/600.css";
+import "@fontsource/bricolage-grotesque/700.css";
+import "@fontsource/bricolage-grotesque/800.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {

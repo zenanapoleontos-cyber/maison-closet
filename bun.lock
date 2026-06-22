@@ -5,7 +5,9 @@
     "": {
       "name": "tanstack_start_ts",
       "dependencies": {
+        "@fontsource/bricolage-grotesque": "^5.2.10",
         "@fontsource/cormorant-garamond": "^5.2.11",
+        "@fontsource/inter": "^5.2.8",
         "@fontsource/karla": "^5.2.8",
         "@hookform/resolvers": "^5.2.2",
         "@radix-ui/react-accordion": "^1.2.12",
@@ -215,7 +217,11 @@
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
 
+    "@fontsource/bricolage-grotesque": ["@fontsource/bricolage-grotesque@5.2.10", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/bricolage-grotesque/-/bricolage-grotesque-5.2.10.tgz", {}, "sha512-V2xS+1P7C8IrSypXLUx/bLtX/LsTlYtV2k2CsU+S/0t8qepZ2hvKSlyJIx7Ub/iY8Bbnj+IjAuUF9nvFz+BbIg=="],
+
     "@fontsource/cormorant-garamond": ["@fontsource/cormorant-garamond@5.2.11", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/cormorant-garamond/-/cormorant-garamond-5.2.11.tgz", {}, "sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA=="],
+
+    "@fontsource/inter": ["@fontsource/inter@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/inter/-/inter-5.2.8.tgz", {}, "sha512-P6r5WnJoKiNVV+zvW2xM13gNdFhAEpQ9dQJHt3naLvfg+LkF2ldgSLiF4T41lf1SQCM9QmkqPTn4TH568IRagg=="],
 
     "@fontsource/karla": ["@fontsource/karla@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/karla/-/karla-5.2.8.tgz", {}, "sha512-uZMA4ugNcHFYMpjr/9FIHQC3ldtILlqPdK3f4P9XInDgRL0NxdIyRwH9MuGZUT7sdup0kshk9zsGXitq1xpFAw=="],
 
