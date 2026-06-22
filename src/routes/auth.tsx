@@ -35,12 +35,12 @@ function AuthPage() {
           email, password,
           options: {
             data: { display_name: name },
-            emailRedirectTo: `${window.location.origin}/wardrobe`,
+            emailRedirectTo: `${window.location.origin}/profile`,
           },
         });
         if (error) throw error;
         toast.success("Welcome to MyWeekly Wardrobe!");
-        navigate({ to: "/wardrobe" });
+        navigate({ to: "/profile" });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
