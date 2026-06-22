@@ -27,7 +27,7 @@ function Landing() {
       <main>
         <section className="mx-auto max-w-5xl px-6 pt-16 pb-24 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border bg-card/60 backdrop-blur px-4 py-1.5 text-xs text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5" /> AI-styled from your own closet
+            <Sparkles className="h-3.5 w-3.5" /> Get dressed from your own wardrobe
           </span>
           <h1 className="mt-8 font-display text-6xl sm:text-7xl md:text-8xl leading-[0.95]">
             Your wardrobe,
