@@ -175,3 +175,30 @@ function ProfilePage() {
     </div>
   );
 }
+
+function PhoneMock({ className = "", accent, featured = false }: { className?: string; accent: string; featured?: boolean }) {
+  return (
+    <div className={`h-72 w-40 rounded-[2rem] bg-ink p-1.5 shadow-card ${className}`}>
+      <div className="h-full w-full rounded-[1.6rem] bg-white overflow-hidden flex flex-col">
+        <div className="h-5 flex items-center justify-center">
+          <div className="h-1.5 w-10 rounded-full bg-ink/70" />
+        </div>
+        <div className="px-2 flex items-center gap-1.5">
+          <div className="h-6 w-6 rounded-full" style={{ background: accent }} />
+          <div className="flex-1">
+            <div className="h-1.5 w-12 rounded-full bg-muted mb-1" />
+            <div className="h-1.5 w-8 rounded-full bg-muted" />
+          </div>
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-1.5 px-2">
+          <div className="aspect-square rounded-lg" style={{ background: accent }} />
+          <div className="aspect-square rounded-lg bg-[var(--tile-purple)]" />
+          <div className="aspect-square rounded-lg bg-[var(--tile-orange)]" />
+          <div className="aspect-square rounded-lg bg-[var(--tile-cyan)]" />
+          {featured && <div className="aspect-square rounded-lg bg-pink-300" />}
+          {featured && <div className="aspect-square rounded-lg bg-[var(--neon)]" />}
+        </div>
+      </div>
+    </div>
+  );
+}
