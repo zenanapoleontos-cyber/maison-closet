@@ -114,43 +114,74 @@ function ItemCard({ item, onChange }: { item: ClothingItem; onChange: () => void
   );
 }
 
+type PendingItem = {
+  id: string;
+  file: File;
+  preview: string;
+  category: string;
+  color: string;
+  season: string;
+  notes: string;
+};
+
 function AddItemDialog({ onAdded }: { onAdded: () => void }) {
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>("");
-  const [category, setCategory] = useState<string>("Tops");
-  const [color, setColor] = useState<string>(COLORS[0]);
-  const [season, setSeason] = useState<string>("All year");
-  const [notes, setNotes] = useState("");
+  const [pending, setPending] = useState<PendingItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const reset = () => {
-    setFile(null); setPreview(""); setCategory("Tops"); setColor(COLORS[0]); setSeason("All year"); setNotes("");
+    pending.forEach((p) => URL.revokeObjectURL(p.preview));
+    setPending([]);
   };
 
-  const onFile = (f: File | null) => {
-    setFile(f);
-    if (preview) URL.revokeObjectURL(preview);
-    setPreview(f ? URL.createObjectURL(f) : "");
+  const addFiles = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const next: PendingItem[] = Array.from(files).map((f) => ({
+      id: crypto.randomUUID(),
+      file: f,
+      preview: URL.createObjectURL(f),
+      category: "Tops",
+      color: COLORS[0],
+      season: "All year",
+      notes: "",
+    }));
+    setPending((p) => [...p, ...next]);
+  };
+
+  const updateItem = (id: string, patch: Partial<PendingItem>) => {
+    setPending((p) => p.map((it) => (it.id === id ? { ...it, ...patch } : it)));
+  };
+
+  const removeItem = (id: string) => {
+    setPending((p) => {
+      const found = p.find((it) => it.id === id);
+      if (found) URL.revokeObjectURL(found.preview);
+      return p.filter((it) => it.id !== id);
+    });
   };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) { toast.error("Pick a photo first"); return; }
+    if (pending.length === 0) { toast.error("Pick at least one photo"); return; }
     setSubmitting(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not signed in");
-      const ext = file.name.split(".").pop() || "jpg";
-      const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
-      const up = await supabase.storage.from("wardrobe").upload(path, file, { contentType: file.type });
-      if (up.error) throw up.error;
-      const { error } = await supabase.from("clothing_items").insert({
-        user_id: user.id, image_url: path, category, color: color || null, season, notes: notes || null,
-      });
-      if (error) throw error;
-      toast.success("Added to your wardrobe");
+      let ok = 0;
+      for (const it of pending) {
+        const ext = it.file.name.split(".").pop() || "jpg";
+        const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
+        const up = await supabase.storage.from("wardrobe").upload(path, it.file, { contentType: it.file.type });
+        if (up.error) { toast.error(`${it.file.name}: ${up.error.message}`); continue; }
+        const { error } = await supabase.from("clothing_items").insert({
+          user_id: user.id, image_url: path, category: it.category,
+          color: it.color || null, season: it.season, notes: it.notes || null,
+        });
+        if (error) { toast.error(`${it.file.name}: ${error.message}`); continue; }
+        ok++;
+      }
+      if (ok > 0) toast.success(`Added ${ok} ${ok === 1 ? "piece" : "pieces"} to your wardrobe`);
       setOpen(false); reset(); onAdded();
     } catch (err: any) {
       toast.error(err.message ?? "Upload failed");
@@ -160,58 +191,78 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
   return (
     <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) reset(); }}>
       <DialogTrigger asChild>
-        <Button className="rounded-full h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add piece</Button>
+        <Button className="rounded-full h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add pieces</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md rounded-3xl">
-        <DialogHeader><DialogTitle className="font-display text-2xl">Add a piece</DialogTitle></DialogHeader>
+      <DialogContent className="sm:max-w-3xl rounded-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="font-display text-2xl">Add pieces</DialogTitle>
+        </DialogHeader>
         <form onSubmit={submit} className="space-y-4">
           <div
-            className="aspect-[3/4] rounded-2xl border-2 border-dashed border-border bg-muted/40 overflow-hidden flex items-center justify-center cursor-pointer hover:bg-muted transition"
+            className="rounded-2xl border-2 border-dashed border-border bg-muted/40 p-6 text-center cursor-pointer hover:bg-muted transition"
             onClick={() => fileRef.current?.click()}
           >
-            {preview ? (
-              <img src={preview} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <div className="text-center text-sm text-muted-foreground p-4">
-                <ImageIcon className="mx-auto h-8 w-8 mb-2" />
-                Click to upload a photo
-              </div>
-            )}
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => onFile(e.target.files?.[0] ?? null)} />
+            <ImageIcon className="mx-auto h-8 w-8 mb-2 text-muted-foreground" />
+            <p className="text-sm text-muted-foreground">
+              Click to upload photos — pick several at once
+            </p>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={(e) => { addFiles(e.target.files); if (fileRef.current) fileRef.current.value = ""; }}
+            />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <Label>Category</Label>
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>{CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
-              </Select>
+          {pending.length > 0 && (
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">{pending.length} {pending.length === 1 ? "photo" : "photos"} — set a category for each</p>
+              {pending.map((it) => (
+                <div key={it.id} className="flex gap-3 rounded-2xl border bg-card p-3">
+                  <img src={it.preview} alt="" className="h-28 w-24 rounded-xl object-cover shrink-0" />
+                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div className="space-y-1">
+                      <Label className="text-xs">Category</Label>
+                      <Select value={it.category} onValueChange={(v) => updateItem(it.id, { category: v })}>
+                        <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
+                        <SelectContent>{CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Colour</Label>
+                      <Select value={it.color} onValueChange={(v) => updateItem(it.id, { color: v })}>
+                        <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
+                        <SelectContent>{COLORS.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Season</Label>
+                      <Select value={it.season} onValueChange={(v) => updateItem(it.id, { season: v })}>
+                        <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
+                        <SelectContent>{SEASONS.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+                      </Select>
+                    </div>
+                    <div className="sm:col-span-3 flex items-end gap-2">
+                      <Input
+                        value={it.notes}
+                        onChange={(e) => updateItem(it.id, { notes: e.target.value })}
+                        placeholder="notes (brand, fabric...)"
+                        className="h-9"
+                      />
+                      <Button type="button" variant="ghost" size="icon" onClick={() => removeItem(it.id)} aria-label="Remove">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="space-y-1.5">
-              <Label>Season</Label>
-              <Select value={season} onValueChange={setSeason}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>{SEASONS.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
-              </Select>
-            </div>
-          </div>
+          )}
 
-          <div className="space-y-1.5">
-            <Label>Colour</Label>
-            <Select value={color} onValueChange={setColor}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>{COLORS.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="notes">Notes (optional)</Label>
-            <Input id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="brand, fabric, fit..." />
-          </div>
-
-          <Button type="submit" disabled={submitting} className="w-full rounded-full h-11 shadow-soft">
-            {submitting ? "Adding..." : "Add to wardrobe"}
+          <Button type="submit" disabled={submitting || pending.length === 0} className="w-full rounded-full h-11 shadow-soft">
+            {submitting ? "Uploading..." : pending.length > 1 ? `Add ${pending.length} pieces` : "Add to wardrobe"}
           </Button>
         </form>
       </DialogContent>
