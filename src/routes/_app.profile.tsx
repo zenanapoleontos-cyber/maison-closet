@@ -108,28 +108,51 @@ function ProfilePage() {
             </button>
           </div>
 
-          <div className="mt-10 text-center">
-            <p className="font-ui text-sm text-muted-foreground">
-              {tab === "items" && "No items yet. Start by adding pieces to your wardrobe."}
-              {tab === "outfits" && "No outfits yet. Create your first look."}
-              {tab === "lookbooks" && "No lookbooks yet."}
-            </p>
-            {tab === "items" && (
-              <Link
-                to="/wardrobe"
-                className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
-              >
-                Add your first piece
-              </Link>
-            )}
-            {tab === "outfits" && (
-              <Link
-                to="/outfits"
-                className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
-              >
-                Create an outfit
-              </Link>
-            )}
+          <div className="mt-10 grid gap-8 md:grid-cols-2 items-center">
+            <div className="text-center md:text-left">
+              <p className="font-ui text-base text-ink">
+                {tab === "items" && "No items yet. Start building your digital wardrobe."}
+                {tab === "outfits" && "No outfits yet. Create your first look from your pieces."}
+                {tab === "lookbooks" && "No lookbooks yet. Group outfits into curated collections."}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground font-ui">
+                Upload photos of your clothes, tag them, and let AI style you.
+              </p>
+              {tab === "items" && (
+                <Link
+                  to="/wardrobe"
+                  className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
+                >
+                  Add your first piece
+                </Link>
+              )}
+              {tab === "outfits" && (
+                <Link
+                  to="/outfits"
+                  className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
+                >
+                  Create an outfit
+                </Link>
+              )}
+              {tab === "lookbooks" && (
+                <Link
+                  to="/calendar"
+                  className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
+                >
+                  Plan your week
+                </Link>
+              )}
+            </div>
+            <div className="relative h-64 sm:h-72 rounded-2xl bg-[color-mix(in_oklab,var(--tile-purple)_35%,white)] overflow-hidden flex items-center justify-center">
+              <div className="absolute left-4 top-8 h-40 w-24 rounded-2xl bg-white shadow-card -rotate-[8deg] border" />
+              <div className="relative h-52 w-28 rounded-2xl bg-white shadow-card border flex flex-col items-center justify-center gap-2 px-2 z-10">
+                <div className="h-16 w-16 rounded-lg bg-[var(--neon)]" />
+                <div className="h-2 w-16 rounded-full bg-muted" />
+                <div className="h-2 w-12 rounded-full bg-muted" />
+                <div className="h-8 w-20 rounded-lg bg-[var(--tile-orange)]" />
+              </div>
+              <div className="absolute right-4 top-6 h-40 w-24 rounded-2xl bg-white shadow-card rotate-[8deg] border" />
+            </div>
           </div>
         </div>
       </div>
