@@ -109,23 +109,33 @@ function ProfilePage() {
           </div>
 
           <div className="mt-10 grid gap-8 md:grid-cols-2 items-center">
+            {/* Left: copy + QR */}
             <div className="text-center md:text-left">
               <p className="font-ui text-base text-ink">
-                {tab === "items" && "No items yet. Start building your digital wardrobe."}
+                {tab === "items" && "No items yet. Add items exclusively on the MyWeekly Wardrobe app."}
                 {tab === "outfits" && "No outfits yet. Create your first look from your pieces."}
                 {tab === "lookbooks" && "No lookbooks yet. Group outfits into curated collections."}
               </p>
-              <p className="mt-2 text-sm text-muted-foreground font-ui">
-                Upload photos of your clothes, tag them, and let AI style you.
-              </p>
+
               {tab === "items" && (
-                <Link
-                  to="/wardrobe"
-                  className="inline-flex mt-6 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
-                >
-                  Add your first piece
-                </Link>
+                <div className="mt-6 flex flex-col items-center md:items-start gap-3">
+                  <div className="h-40 w-40 rounded-xl bg-white border p-2 shadow-card">
+                    <div
+                      className="h-full w-full rounded-md"
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(var(--ink) 1.4px, transparent 1.6px)",
+                        backgroundSize: "8px 8px",
+                        backgroundPosition: "0 0",
+                      }}
+                    />
+                  </div>
+                  <p className="text-xs text-ink font-ui underline underline-offset-2">
+                    Scan the QR code to style in app
+                  </p>
+                </div>
               )}
+
               {tab === "outfits" && (
                 <Link
                   to="/outfits"
@@ -142,18 +152,51 @@ function ProfilePage() {
                   Plan your week
                 </Link>
               )}
+
+              {tab === "items" && (
+                <Link
+                  to="/wardrobe"
+                  className="inline-flex mt-4 items-center justify-center rounded-full px-6 h-11 bg-[var(--neon)] text-[var(--neon-foreground)] font-ui font-semibold shadow-soft"
+                >
+                  Or add pieces here
+                </Link>
+              )}
             </div>
-            <div className="relative h-64 sm:h-72 rounded-2xl bg-[color-mix(in_oklab,var(--tile-purple)_35%,white)] overflow-hidden flex items-center justify-center">
-              <div className="absolute left-4 top-8 h-40 w-24 rounded-2xl bg-white shadow-card -rotate-[8deg] border" />
-              <div className="relative h-52 w-28 rounded-2xl bg-white shadow-card border flex flex-col items-center justify-center gap-2 px-2 z-10">
-                <div className="h-16 w-16 rounded-lg bg-[var(--neon)]" />
-                <div className="h-2 w-16 rounded-full bg-muted" />
-                <div className="h-2 w-12 rounded-full bg-muted" />
-                <div className="h-8 w-20 rounded-lg bg-[var(--tile-orange)]" />
-              </div>
-              <div className="absolute right-4 top-6 h-40 w-24 rounded-2xl bg-white shadow-card rotate-[8deg] border" />
+
+            {/* Right: three phone mockups */}
+            <div className="relative h-80 flex items-center justify-center">
+              <PhoneMock className="absolute -left-2 top-6 rotate-[-10deg] scale-90 opacity-95" accent="var(--tile-cyan)" />
+              <PhoneMock className="absolute -right-2 top-4 rotate-[10deg] scale-90 opacity-95" accent="var(--tile-orange)" />
+              <PhoneMock className="relative z-10" accent="var(--neon)" featured />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PhoneMock({ className = "", accent, featured = false }: { className?: string; accent: string; featured?: boolean }) {
+  return (
+    <div className={`h-72 w-40 rounded-[2rem] bg-ink p-1.5 shadow-card ${className}`}>
+      <div className="h-full w-full rounded-[1.6rem] bg-white overflow-hidden flex flex-col">
+        <div className="h-5 flex items-center justify-center">
+          <div className="h-1.5 w-10 rounded-full bg-ink/70" />
+        </div>
+        <div className="px-2 flex items-center gap-1.5">
+          <div className="h-6 w-6 rounded-full" style={{ background: accent }} />
+          <div className="flex-1">
+            <div className="h-1.5 w-12 rounded-full bg-muted mb-1" />
+            <div className="h-1.5 w-8 rounded-full bg-muted" />
+          </div>
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-1.5 px-2">
+          <div className="aspect-square rounded-lg" style={{ background: accent }} />
+          <div className="aspect-square rounded-lg bg-[var(--tile-purple)]" />
+          <div className="aspect-square rounded-lg bg-[var(--tile-orange)]" />
+          <div className="aspect-square rounded-lg bg-[var(--tile-cyan)]" />
+          {featured && <div className="aspect-square rounded-lg bg-pink-300" />}
+          {featured && <div className="aspect-square rounded-lg bg-[var(--neon)]" />}
         </div>
       </div>
     </div>
