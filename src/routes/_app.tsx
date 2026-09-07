@@ -13,6 +13,7 @@ function AppLayout() {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isProfile = pathname === "/profile";
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
@@ -37,7 +38,7 @@ function AppLayout() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-30 border-b bg-background/70 backdrop-blur-xl">
+      {!isProfile && <header className="sticky top-0 z-30 border-b bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link to="/" className="font-display text-2xl">MyWeekly Wardrobe</Link>
           <nav className="flex items-center gap-1">
@@ -59,8 +60,8 @@ function AppLayout() {
             </button>
           </nav>
         </div>
-      </header>
-      <main className="mx-auto max-w-6xl px-6 py-10">
+      </header>}
+      <main className={isProfile ? "w-full" : "mx-auto max-w-6xl px-6 py-10"}>
         <Outlet />
       </main>
     </div>
