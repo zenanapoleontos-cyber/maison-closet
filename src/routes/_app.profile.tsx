@@ -138,7 +138,7 @@ function ProfilePage() {
               {tab === "items" && (
                 <div className="mt-7 flex flex-col items-center gap-3">
                   <div className="rounded-md bg-card p-2">
-                    <QRCodeSVG value={`${window.location.origin}/wardrobe`} size={142} level="M" fgColor="var(--ink)" bgColor="var(--card)" />
+                    <QRCodeSVG value="https://www.maisoncloset.com/wardrobe" size={142} level="M" fgColor="var(--ink)" bgColor="var(--card)" />
                   </div>
                   <p className="text-[11px] text-ink">
                     Scan the QR code to style in app
