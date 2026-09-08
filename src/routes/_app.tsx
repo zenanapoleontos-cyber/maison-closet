@@ -31,6 +31,7 @@ function AppLayout() {
   if (!session) return null;
 
   const links = [
+    { to: "/profile", label: "Profile", icon: Sparkles },
     { to: "/wardrobe", label: "Wardrobe", icon: Shirt },
     { to: "/outfits", label: "Outfits", icon: Sparkles },
     { to: "/calendar", label: "Calendar", icon: CalendarDays },
