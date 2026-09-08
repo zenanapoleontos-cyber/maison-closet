@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tan
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
-import { Shirt, Sparkles, LogOut, CalendarDays } from "lucide-react";
+import { Shirt, Sparkles, LogOut, CalendarDays, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app")({
@@ -31,7 +31,7 @@ function AppLayout() {
   if (!session) return null;
 
   const links = [
-    { to: "/profile", label: "Profile", icon: Sparkles },
+    { to: "/profile", label: "Profile", icon: User },
     { to: "/wardrobe", label: "Wardrobe", icon: Shirt },
     { to: "/outfits", label: "Outfits", icon: Sparkles },
     { to: "/calendar", label: "Calendar", icon: CalendarDays },
