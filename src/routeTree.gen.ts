@@ -14,8 +14,10 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AppCalendarRouteImport } from './routes/_app.calendar'
+import { Route as AppHomeRouteImport } from './routes/_app.home'
 import { Route as AppOutfitsRouteImport } from './routes/_app.outfits'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppRehomeRouteImport } from './routes/_app.rehome'
 import { Route as AppWardrobeRouteImport } from './routes/_app.wardrobe'
 
 const IndexRoute = IndexRouteImport.update({
@@ -42,6 +44,11 @@ const AppCalendarRoute = AppCalendarRouteImport.update({
   path: '/calendar',
   getParentRoute: () => AppRoute,
 } as any)
+const AppHomeRoute = AppHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppOutfitsRoute = AppOutfitsRouteImport.update({
   id: '/outfits',
   path: '/outfits',
@@ -50,6 +57,11 @@ const AppOutfitsRoute = AppOutfitsRouteImport.update({
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRehomeRoute = AppRehomeRouteImport.update({
+  id: '/rehome',
+  path: '/rehome',
   getParentRoute: () => AppRoute,
 } as any)
 const AppWardrobeRoute = AppWardrobeRouteImport.update({
@@ -63,8 +75,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/calendar': typeof AppCalendarRoute
+  '/home': typeof AppHomeRoute
   '/outfits': typeof AppOutfitsRoute
   '/profile': typeof AppProfileRoute
+  '/rehome': typeof AppRehomeRoute
   '/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRoutesByTo {
@@ -72,8 +86,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/calendar': typeof AppCalendarRoute
+  '/home': typeof AppHomeRoute
   '/outfits': typeof AppOutfitsRoute
   '/profile': typeof AppProfileRoute
+  '/rehome': typeof AppRehomeRoute
   '/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRoutesById {
@@ -83,8 +99,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_app/calendar': typeof AppCalendarRoute
+  '/_app/home': typeof AppHomeRoute
   '/_app/outfits': typeof AppOutfitsRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_app/rehome': typeof AppRehomeRoute
   '/_app/wardrobe': typeof AppWardrobeRoute
 }
 export interface FileRouteTypes {
@@ -94,8 +112,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/calendar'
+    | '/home'
     | '/outfits'
     | '/profile'
+    | '/rehome'
     | '/wardrobe'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -103,8 +123,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/calendar'
+    | '/home'
     | '/outfits'
     | '/profile'
+    | '/rehome'
     | '/wardrobe'
   id:
     | '__root__'
@@ -113,8 +135,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_app/calendar'
+    | '/_app/home'
     | '/_app/outfits'
     | '/_app/profile'
+    | '/_app/rehome'
     | '/_app/wardrobe'
   fileRoutesById: FileRoutesById
 }
@@ -162,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCalendarRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/home': {
+      id: '/_app/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof AppHomeRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/outfits': {
       id: '/_app/outfits'
       path: '/outfits'
@@ -176,6 +207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/rehome': {
+      id: '/_app/rehome'
+      path: '/rehome'
+      fullPath: '/rehome'
+      preLoaderRoute: typeof AppRehomeRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/wardrobe': {
       id: '/_app/wardrobe'
       path: '/wardrobe'
@@ -188,15 +226,19 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppCalendarRoute: typeof AppCalendarRoute
+  AppHomeRoute: typeof AppHomeRoute
   AppOutfitsRoute: typeof AppOutfitsRoute
   AppProfileRoute: typeof AppProfileRoute
+  AppRehomeRoute: typeof AppRehomeRoute
   AppWardrobeRoute: typeof AppWardrobeRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppCalendarRoute: AppCalendarRoute,
+  AppHomeRoute: AppHomeRoute,
   AppOutfitsRoute: AppOutfitsRoute,
   AppProfileRoute: AppProfileRoute,
+  AppRehomeRoute: AppRehomeRoute,
   AppWardrobeRoute: AppWardrobeRoute,
 }
 
