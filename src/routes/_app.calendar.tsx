@@ -124,7 +124,7 @@ function CalendarPage() {
         </div>
       </div>
 
-      <div className="rounded-3xl border bg-card/70 backdrop-blur p-4 sm:p-6 shadow-card">
+      <div className="rounded-md border bg-card p-4 sm:p-6 shadow-card">
         <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
           {DOW.map((d) => (
             <div key={d} className="text-center text-[11px] uppercase tracking-wider text-muted-foreground py-2">{d}</div>
@@ -142,9 +142,9 @@ function CalendarPage() {
                 key={idx}
                 onClick={() => openDay(date)}
                 className={cn(
-                  "aspect-square sm:aspect-[4/5] rounded-2xl border p-1.5 sm:p-2 text-left transition hover:border-primary hover:bg-accent/30 flex flex-col gap-1 overflow-hidden",
+                  "aspect-square sm:aspect-[4/5] rounded-md border p-1.5 sm:p-2 text-left transition hover:border-primary hover:bg-accent/30 flex flex-col gap-1 overflow-hidden",
                   isToday && "border-primary ring-1 ring-primary/40",
-                  outfit && "bg-feminine/10"
+                  outfit && "bg-secondary/60"
                 )}
               >
                 <span className={cn("text-xs font-medium", isToday && "text-primary")}>{date.getDate()}</span>
@@ -166,7 +166,7 @@ function CalendarPage() {
       </div>
 
       <Dialog open={!!openDate} onOpenChange={(v) => !v && setOpenDate(null)}>
-        <DialogContent className="rounded-3xl">
+        <DialogContent className="rounded-md">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl flex items-center gap-2">
               <CalendarDays className="h-5 w-5" />

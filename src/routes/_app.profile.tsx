@@ -1,7 +1,7 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Bookmark, CalendarDays, Grid2X2, Heart, LogOut, Search, SlidersHorizontal, Sparkles, Shirt } from "lucide-react";
+import { Bookmark, Grid2X2, Heart, Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
@@ -23,7 +23,6 @@ export const Route = createFileRoute("/_app/profile")({
 type Counts = { items: number; outfits: number; lookbooks: number };
 
 function ProfilePage() {
-  const navigate = useNavigate();
   const [name, setName] = useState("You");
   const [handle, setHandle] = useState("you");
   const [tab, setTab] = useState<"items" | "outfits" | "lookbooks">("items");
@@ -49,37 +48,21 @@ function ProfilePage() {
   const initial = name.trim().charAt(0).toUpperCase() || "Y";
 
   return (
-    <div className="min-h-screen bg-background font-ui text-ink">
-      <header className="border-b bg-card">
-        <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto] items-center gap-6 px-5 py-5 md:grid-cols-[1fr_auto_1fr]">
-          <nav className="hidden items-center gap-7 md:flex">
-            <Link to="/wardrobe" className="text-xs font-semibold hover:opacity-60">Wardrobe</Link>
-            <Link to="/outfits" className="text-xs font-semibold hover:opacity-60">Outfits</Link>
-            <Link to="/calendar" className="text-xs font-semibold hover:opacity-60">Calendar</Link>
-          </nav>
-          <Link to="/" className="font-chunky text-xl font-extrabold uppercase md:text-2xl">MyWeekly Wardrobe</Link>
-          <div className="flex justify-end gap-1.5">
-            <Button asChild variant="ghost" size="icon" aria-label="Open wardrobe" className="md:hidden"><Link to="/wardrobe"><Shirt /></Link></Button>
-            <Button asChild variant="ghost" size="icon" aria-label="Open outfits" className="md:hidden"><Link to="/outfits"><Sparkles /></Link></Button>
-            <Button asChild variant="ghost" size="icon" aria-label="Open calendar" className="md:hidden"><Link to="/calendar"><CalendarDays /></Link></Button>
-            <Button variant="ghost" size="icon" aria-label="Sign out" onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }}><LogOut /></Button>
-          </div>
-        </div>
-      </header>
+    <div className="font-ui text-ink">
+      <section className="relative h-32 rounded-t-md bg-secondary sm:h-40" aria-label="Profile cover" />
 
-      <section className="relative h-32 bg-tile-purple sm:h-40" aria-label="Profile cover" />
 
       <section className="border-b bg-background pb-0">
         <div className="mx-auto max-w-5xl px-5">
           <div className="relative -mt-14 flex flex-col items-center sm:-mt-16">
-            <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-card bg-neon font-chunky text-5xl font-extrabold text-neon-foreground shadow-card sm:h-32 sm:w-32">
+            <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-card bg-primary font-chunky text-5xl font-normal text-primary-foreground shadow-card sm:h-32 sm:w-32">
               {initial}
             </div>
             <div className="absolute right-0 top-2 hidden gap-3 sm:flex">
               <Button variant="outline" size="icon" className="h-11 w-11 rounded-full bg-card" aria-label="Saved outfits"><Bookmark /></Button>
               <Button variant="outline" size="icon" className="h-11 w-11 rounded-full bg-card" aria-label="Lookbooks"><Grid2X2 /></Button>
             </div>
-            <h1 className="mt-3 font-chunky text-2xl font-bold">{name}</h1>
+            <h1 className="mt-3 font-chunky text-2xl font-normal">{name}</h1>
             <p className="text-xs text-muted-foreground">@{handle}</p>
           </div>
 
@@ -123,7 +106,7 @@ function ProfilePage() {
             </Button>
             <Button variant="outline" size="icon" className="relative h-10 w-10 shrink-0" aria-label="Filters">
               <SlidersHorizontal />
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-pink-400 text-[10px] font-bold text-ink flex items-center justify-center">1</span>
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">1</span>
             </Button>
           </div>
 
@@ -143,14 +126,14 @@ function ProfilePage() {
                   <p className="text-[11px] text-ink">
                     Scan the QR code to style in app
                   </p>
-                  <Button asChild className="mt-1 h-9 rounded-full bg-neon px-5 text-neon-foreground hover:bg-neon/90"><Link to="/wardrobe">Add pieces here</Link></Button>
+                  <Button asChild className="mt-1 h-9 rounded-full bg-primary px-5 text-primary-foreground hover:bg-primary/90"><Link to="/wardrobe">Add pieces here</Link></Button>
                 </div>
               )}
 
               {tab === "outfits" && (
                 <Link
                   to="/outfits"
-                  className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-neon px-6 font-semibold text-neon-foreground shadow-soft"
+                  className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 font-semibold text-primary-foreground shadow-soft"
                 >
                   Create an outfit
                 </Link>
@@ -158,7 +141,7 @@ function ProfilePage() {
               {tab === "lookbooks" && (
                 <Link
                   to="/calendar"
-                  className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-neon px-6 font-semibold text-neon-foreground shadow-soft"
+                  className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 font-semibold text-primary-foreground shadow-soft"
                 >
                   Plan your week
                 </Link>
@@ -194,10 +177,10 @@ function PhoneMock({ className = "", accent, featured = false }: { className?: s
         </div>
         <div className="mt-2 grid grid-cols-2 gap-1.5 px-2">
           <div className={`aspect-square rounded-lg ${accent}`} />
-          <div className="aspect-square rounded-lg bg-tile-purple" />
+          <div className="aspect-square rounded-lg bg-secondary" />
           <div className="aspect-square rounded-lg bg-tile-orange" />
           <div className="aspect-square rounded-lg bg-tile-cyan" />
-          {featured && <div className="aspect-square rounded-lg bg-pink-300" />}
+          {featured && <div className="aspect-square rounded-lg bg-secondary" />}
           {featured && <div className="aspect-square rounded-lg bg-[var(--neon)]" />}
         </div>
       </div>

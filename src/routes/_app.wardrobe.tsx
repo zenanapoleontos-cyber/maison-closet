@@ -35,16 +35,19 @@ function WardrobePage() {
 
   const visible = filter === "all" ? items : items.filter((i) => i.category === filter);
 
+  const counts = CATEGORIES.map((c) => [c, items.filter((i) => i.category === c).length] as const);
+
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-5xl">Your wardrobe</h1>
-          <p className="mt-1 text-sm text-muted-foreground">{items.length} {items.length === 1 ? "piece" : "pieces"} catalogued</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">My Maison</p>
+          <h1 className="mt-3 font-display text-5xl sm:text-6xl">My Closet</h1>
+          <p className="mt-2 text-sm text-muted-foreground">{items.length} {items.length === 1 ? "piece" : "pieces"} catalogued</p>
         </div>
         <div className="flex items-center gap-2">
           <Select value={filter} onValueChange={setFilter}>
-            <SelectTrigger className="w-40 rounded-full bg-card/70"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-40 rounded-md bg-card"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All categories</SelectItem>
               {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
@@ -54,6 +57,21 @@ function WardrobePage() {
         </div>
       </div>
 
+      <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-md border bg-border sm:grid-cols-4 lg:grid-cols-7">
+        {counts.map(([c, n]) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setFilter(filter === c ? "all" : c)}
+            className={`bg-card px-4 py-5 text-left transition hover:bg-secondary/60 ${filter === c ? "bg-secondary/70" : ""}`}
+          >
+            <p className="font-display text-3xl leading-none">{n}</p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{c}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-10">
       {loading ? (
         <p className="text-muted-foreground">Loading...</p>
       ) : visible.length === 0 ? (
@@ -63,14 +81,15 @@ function WardrobePage() {
           {visible.map((item) => <ItemCard key={item.id} item={item} onChange={load} />)}
         </div>
       )}
+      </div>
     </div>
   );
 }
 
 function EmptyState() {
   return (
-    <div className="rounded-3xl border bg-card/60 backdrop-blur p-12 text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-feminine text-primary-foreground">
+    <div className="rounded-md border bg-card p-12 text-center">
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-md bg-primary text-primary-foreground">
         <ImageIcon className="h-6 w-6" />
       </div>
       <h3 className="mt-6 font-display text-2xl">Your closet is empty</h3>
@@ -92,7 +111,7 @@ function ItemCard({ item, onChange }: { item: ClothingItem; onChange: () => void
   };
 
   return (
-    <div className="group relative rounded-3xl border bg-card overflow-hidden shadow-card transition hover:shadow-soft">
+    <div className="group relative rounded-md border bg-card overflow-hidden shadow-card transition hover:shadow-soft">
       <div className="aspect-[3/4] bg-muted overflow-hidden">
         {url ? <img src={url} alt={item.category} className="h-full w-full object-cover" loading="lazy" />
              : <div className="h-full w-full animate-pulse bg-muted" />}
@@ -105,7 +124,7 @@ function ItemCard({ item, onChange }: { item: ClothingItem; onChange: () => void
               {[item.color, item.season].filter(Boolean).join(" · ") || "—"}
             </p>
           </div>
-          <button onClick={remove} className="opacity-0 group-hover:opacity-100 transition rounded-full p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive" aria-label="Delete">
+          <button onClick={remove} className="opacity-0 group-hover:opacity-100 transition rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive" aria-label="Delete">
             <Trash2 className="h-4 w-4" />
           </button>
         </div>
@@ -191,15 +210,15 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
   return (
     <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) reset(); }}>
       <DialogTrigger asChild>
-        <Button className="rounded-full h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add pieces</Button>
+        <Button className="rounded-md h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add pieces</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl rounded-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-3xl rounded-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="font-display text-2xl">Add pieces</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-4">
           <div
-            className="rounded-2xl border-2 border-dashed border-border bg-muted/40 p-6 text-center cursor-pointer hover:bg-muted transition"
+            className="rounded-md border-2 border-dashed border-border bg-muted/40 p-6 text-center cursor-pointer hover:bg-muted transition"
             onClick={() => fileRef.current?.click()}
           >
             <ImageIcon className="mx-auto h-8 w-8 mb-2 text-muted-foreground" />
@@ -220,7 +239,7 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
             <div className="space-y-3">
               <p className="text-sm text-muted-foreground">{pending.length} {pending.length === 1 ? "photo" : "photos"} — set a category for each</p>
               {pending.map((it) => (
-                <div key={it.id} className="flex gap-3 rounded-2xl border bg-card p-3">
+                <div key={it.id} className="flex gap-3 rounded-md border bg-card p-3">
                   <img src={it.preview} alt="" className="h-28 w-24 rounded-xl object-cover shrink-0" />
                   <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div className="space-y-1">
@@ -261,7 +280,7 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
             </div>
           )}
 
-          <Button type="submit" disabled={submitting || pending.length === 0} className="w-full rounded-full h-11 shadow-soft">
+          <Button type="submit" disabled={submitting || pending.length === 0} className="w-full rounded-md h-11 shadow-soft">
             {submitting ? "Uploading..." : pending.length > 1 ? `Add ${pending.length} pieces` : "Add to wardrobe"}
           </Button>
         </form>
