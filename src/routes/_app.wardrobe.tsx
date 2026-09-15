@@ -35,16 +35,19 @@ function WardrobePage() {
 
   const visible = filter === "all" ? items : items.filter((i) => i.category === filter);
 
+  const counts = CATEGORIES.map((c) => [c, items.filter((i) => i.category === c).length] as const);
+
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-5xl">Your wardrobe</h1>
-          <p className="mt-1 text-sm text-muted-foreground">{items.length} {items.length === 1 ? "piece" : "pieces"} catalogued</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">My Maison</p>
+          <h1 className="mt-3 font-display text-5xl sm:text-6xl">My Closet</h1>
+          <p className="mt-2 text-sm text-muted-foreground">{items.length} {items.length === 1 ? "piece" : "pieces"} catalogued</p>
         </div>
         <div className="flex items-center gap-2">
           <Select value={filter} onValueChange={setFilter}>
-            <SelectTrigger className="w-40 rounded-full bg-card/70"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-40 rounded-md bg-card"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All categories</SelectItem>
               {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
@@ -54,6 +57,21 @@ function WardrobePage() {
         </div>
       </div>
 
+      <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-md border bg-border sm:grid-cols-4 lg:grid-cols-7">
+        {counts.map(([c, n]) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setFilter(filter === c ? "all" : c)}
+            className={`bg-card px-4 py-5 text-left transition hover:bg-secondary/60 ${filter === c ? "bg-secondary/70" : ""}`}
+          >
+            <p className="font-display text-3xl leading-none">{n}</p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{c}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-10">
       {loading ? (
         <p className="text-muted-foreground">Loading...</p>
       ) : visible.length === 0 ? (
@@ -63,6 +81,7 @@ function WardrobePage() {
           {visible.map((item) => <ItemCard key={item.id} item={item} onChange={load} />)}
         </div>
       )}
+      </div>
     </div>
   );
 }
