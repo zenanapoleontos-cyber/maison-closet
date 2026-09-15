@@ -1,7 +1,7 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Bookmark, CalendarDays, Grid2X2, Heart, LogOut, Search, SlidersHorizontal, Sparkles, Shirt } from "lucide-react";
+import { Bookmark, Grid2X2, Heart, Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
@@ -107,7 +107,7 @@ function ProfilePage() {
             </Button>
             <Button variant="outline" size="icon" className="relative h-10 w-10 shrink-0" aria-label="Filters">
               <SlidersHorizontal />
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-pink-400 text-[10px] font-bold text-ink flex items-center justify-center">1</span>
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">1</span>
             </Button>
           </div>
 
@@ -181,7 +181,7 @@ function PhoneMock({ className = "", accent, featured = false }: { className?: s
           <div className="aspect-square rounded-lg bg-secondary" />
           <div className="aspect-square rounded-lg bg-tile-orange" />
           <div className="aspect-square rounded-lg bg-tile-cyan" />
-          {featured && <div className="aspect-square rounded-lg bg-pink-300" />}
+          {featured && <div className="aspect-square rounded-lg bg-secondary" />}
           {featured && <div className="aspect-square rounded-lg bg-[var(--neon)]" />}
         </div>
       </div>
