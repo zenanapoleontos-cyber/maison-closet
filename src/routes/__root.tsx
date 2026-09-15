@@ -1,14 +1,7 @@
-import "@fontsource/cormorant-garamond/400.css";
-import "@fontsource/cormorant-garamond/500.css";
-import "@fontsource/cormorant-garamond/600.css";
-import "@fontsource/karla/400.css";
-import "@fontsource/karla/500.css";
-import "@fontsource/karla/600.css";
-import "@fontsource/bricolage-grotesque/700.css";
-import "@fontsource/bricolage-grotesque/800.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/work-sans/400.css";
+import "@fontsource/work-sans/500.css";
+import "@fontsource/work-sans/600.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
