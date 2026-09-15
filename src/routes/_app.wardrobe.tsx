@@ -88,8 +88,8 @@ function WardrobePage() {
 
 function EmptyState() {
   return (
-    <div className="rounded-3xl border bg-card/60 backdrop-blur p-12 text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-feminine text-primary-foreground">
+    <div className="rounded-md border bg-card p-12 text-center">
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-md bg-primary text-primary-foreground">
         <ImageIcon className="h-6 w-6" />
       </div>
       <h3 className="mt-6 font-display text-2xl">Your closet is empty</h3>
@@ -111,7 +111,7 @@ function ItemCard({ item, onChange }: { item: ClothingItem; onChange: () => void
   };
 
   return (
-    <div className="group relative rounded-3xl border bg-card overflow-hidden shadow-card transition hover:shadow-soft">
+    <div className="group relative rounded-md border bg-card overflow-hidden shadow-card transition hover:shadow-soft">
       <div className="aspect-[3/4] bg-muted overflow-hidden">
         {url ? <img src={url} alt={item.category} className="h-full w-full object-cover" loading="lazy" />
              : <div className="h-full w-full animate-pulse bg-muted" />}
@@ -124,7 +124,7 @@ function ItemCard({ item, onChange }: { item: ClothingItem; onChange: () => void
               {[item.color, item.season].filter(Boolean).join(" · ") || "—"}
             </p>
           </div>
-          <button onClick={remove} className="opacity-0 group-hover:opacity-100 transition rounded-full p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive" aria-label="Delete">
+          <button onClick={remove} className="opacity-0 group-hover:opacity-100 transition rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive" aria-label="Delete">
             <Trash2 className="h-4 w-4" />
           </button>
         </div>
@@ -210,15 +210,15 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
   return (
     <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) reset(); }}>
       <DialogTrigger asChild>
-        <Button className="rounded-full h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add pieces</Button>
+        <Button className="rounded-md h-10 shadow-soft"><Plus className="h-4 w-4 mr-1" /> Add pieces</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl rounded-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-3xl rounded-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="font-display text-2xl">Add pieces</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-4">
           <div
-            className="rounded-2xl border-2 border-dashed border-border bg-muted/40 p-6 text-center cursor-pointer hover:bg-muted transition"
+            className="rounded-md border-2 border-dashed border-border bg-muted/40 p-6 text-center cursor-pointer hover:bg-muted transition"
             onClick={() => fileRef.current?.click()}
           >
             <ImageIcon className="mx-auto h-8 w-8 mb-2 text-muted-foreground" />
@@ -239,7 +239,7 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
             <div className="space-y-3">
               <p className="text-sm text-muted-foreground">{pending.length} {pending.length === 1 ? "photo" : "photos"} — set a category for each</p>
               {pending.map((it) => (
-                <div key={it.id} className="flex gap-3 rounded-2xl border bg-card p-3">
+                <div key={it.id} className="flex gap-3 rounded-md border bg-card p-3">
                   <img src={it.preview} alt="" className="h-28 w-24 rounded-xl object-cover shrink-0" />
                   <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div className="space-y-1">
@@ -280,7 +280,7 @@ function AddItemDialog({ onAdded }: { onAdded: () => void }) {
             </div>
           )}
 
-          <Button type="submit" disabled={submitting || pending.length === 0} className="w-full rounded-full h-11 shadow-soft">
+          <Button type="submit" disabled={submitting || pending.length === 0} className="w-full rounded-md h-11 shadow-soft">
             {submitting ? "Uploading..." : pending.length > 1 ? `Add ${pending.length} pieces` : "Add to wardrobe"}
           </Button>
         </form>
