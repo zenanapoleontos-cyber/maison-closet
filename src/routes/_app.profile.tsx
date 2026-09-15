@@ -23,7 +23,6 @@ export const Route = createFileRoute("/_app/profile")({
 type Counts = { items: number; outfits: number; lookbooks: number };
 
 function ProfilePage() {
-  const navigate = useNavigate();
   const [name, setName] = useState("You");
   const [handle, setHandle] = useState("you");
   const [tab, setTab] = useState<"items" | "outfits" | "lookbooks">("items");
