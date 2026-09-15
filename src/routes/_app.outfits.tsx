@@ -128,7 +128,7 @@ function OutfitCard({ outfit, items, onDelete }: { outfit: Outfit; items: Record
           <div className="flex items-center gap-2">
             <h3 className="font-display text-2xl">{outfit.title}</h3>
             {outfit.generated_by_ai && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-feminine px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-primary-foreground">
+              <span className="inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-primary-foreground">
                 <Sparkles className="h-3 w-3" /> AI
               </span>
             )}

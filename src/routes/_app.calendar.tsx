@@ -144,7 +144,7 @@ function CalendarPage() {
                 className={cn(
                   "aspect-square sm:aspect-[4/5] rounded-md border p-1.5 sm:p-2 text-left transition hover:border-primary hover:bg-accent/30 flex flex-col gap-1 overflow-hidden",
                   isToday && "border-primary ring-1 ring-primary/40",
-                  outfit && "bg-feminine/10"
+                  outfit && "bg-secondary/60"
                 )}
               >
                 <span className={cn("text-xs font-medium", isToday && "text-primary")}>{date.getDate()}</span>

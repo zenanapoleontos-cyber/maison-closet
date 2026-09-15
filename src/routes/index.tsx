@@ -46,7 +46,7 @@ function Header() {
   return (
     <header className="border-b border-ink/10 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link to="/" className="font-chunky text-2xl font-extrabold tracking-tight text-ink">
+        <Link to="/" className="font-chunky text-2xl font-normal tracking-tight text-ink">
           myweekly<span className="text-ink/60">.</span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
@@ -73,7 +73,7 @@ function Header() {
 function Hero() {
   return (
     <section id="how" className="pt-20 pb-16 text-center">
-      <h1 className="mx-auto max-w-4xl font-chunky text-6xl font-extrabold leading-[0.95] tracking-tight text-ink sm:text-7xl md:text-8xl">
+      <h1 className="mx-auto max-w-4xl font-chunky text-6xl font-normal leading-[0.95] tracking-tight text-ink sm:text-7xl md:text-8xl">
         Your wardrobe, <span className="italic">organised.</span>
       </h1>
       <p className="mx-auto mt-6 max-w-xl text-base text-ink/70 sm:text-lg">
@@ -101,7 +101,7 @@ function Hero() {
 function Tiles() {
   return (
     <section id="tiles" className="pb-20">
-      <h2 className="mb-6 font-chunky text-3xl font-extrabold tracking-tight text-ink">Popular features</h2>
+      <h2 className="mb-6 font-chunky text-3xl font-normal tracking-tight text-ink">Popular features</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {tiles.map((t) => (
           <Link
@@ -109,7 +109,7 @@ function Tiles() {
             to="/auth"
             className={`group relative overflow-hidden rounded-3xl ${t.bg} p-8 transition hover:scale-[1.01]`}
           >
-            <h3 className="font-chunky text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
+            <h3 className="font-chunky text-3xl font-normal leading-tight tracking-tight text-ink sm:text-4xl">
               {t.title}
             </h3>
             <p className="mt-3 max-w-[18rem] text-sm font-medium text-ink/75">{t.body}</p>
@@ -129,7 +129,7 @@ function Faq() {
     <section id="faq" className="border-t border-ink/10 py-20">
       <div className="grid gap-12 md:grid-cols-[1fr_2fr]">
         <div>
-          <h2 className="font-chunky text-4xl font-extrabold leading-[1] tracking-tight text-ink sm:text-5xl">
+          <h2 className="font-chunky text-4xl font-normal leading-[1] tracking-tight text-ink sm:text-5xl">
             Your questions <span className="italic">answered.</span>
           </h2>
           <p className="mt-4 text-sm text-ink/70">
@@ -146,7 +146,7 @@ function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="flex w-full items-center justify-between gap-6 py-5 text-left"
                 >
-                  <span className="font-chunky text-lg font-bold text-ink sm:text-xl">{f.q}</span>
+                  <span className="font-chunky text-lg font-normal text-ink sm:text-xl">{f.q}</span>
                   <ChevronDown
                     className={`h-5 w-5 shrink-0 text-ink transition-transform ${isOpen ? "rotate-180" : ""}`}
                   />
@@ -164,7 +164,7 @@ function Faq() {
 function CtaStrip() {
   return (
     <section className="mb-20 rounded-3xl bg-ink px-8 py-16 text-center text-white sm:px-16">
-      <h2 className="mx-auto max-w-2xl font-chunky text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+      <h2 className="mx-auto max-w-2xl font-chunky text-4xl font-normal leading-tight tracking-tight sm:text-5xl">
         Ready to meet your wardrobe?
       </h2>
       <p className="mx-auto mt-4 max-w-md text-sm text-white/70">

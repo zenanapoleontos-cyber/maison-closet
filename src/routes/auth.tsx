@@ -101,7 +101,7 @@ function AuthPage() {
   return (
     <div className="flex min-h-screen flex-col bg-lavender font-ui text-ink">
       <header className="mx-auto w-full max-w-6xl px-6 py-6">
-        <Link to="/" className="font-chunky text-xl font-extrabold uppercase">MyWeekly Wardrobe</Link>
+        <Link to="/" className="font-chunky text-xl font-normal uppercase">MyWeekly Wardrobe</Link>
       </header>
 
       <main className="flex flex-1 items-center justify-center px-4 pb-16">
