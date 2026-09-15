@@ -49,25 +49,9 @@ function ProfilePage() {
   const initial = name.trim().charAt(0).toUpperCase() || "Y";
 
   return (
-    <div className="min-h-screen bg-background font-ui text-ink">
-      <header className="border-b bg-card">
-        <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto] items-center gap-6 px-5 py-5 md:grid-cols-[1fr_auto_1fr]">
-          <nav className="hidden items-center gap-7 md:flex">
-            <Link to="/wardrobe" className="text-xs font-semibold hover:opacity-60">Wardrobe</Link>
-            <Link to="/outfits" className="text-xs font-semibold hover:opacity-60">Outfits</Link>
-            <Link to="/calendar" className="text-xs font-semibold hover:opacity-60">Calendar</Link>
-          </nav>
-          <Link to="/" className="font-chunky text-xl font-normal uppercase md:text-2xl">MyWeekly Wardrobe</Link>
-          <div className="flex justify-end gap-1.5">
-            <Button asChild variant="ghost" size="icon" aria-label="Open wardrobe" className="md:hidden"><Link to="/wardrobe"><Shirt /></Link></Button>
-            <Button asChild variant="ghost" size="icon" aria-label="Open outfits" className="md:hidden"><Link to="/outfits"><Sparkles /></Link></Button>
-            <Button asChild variant="ghost" size="icon" aria-label="Open calendar" className="md:hidden"><Link to="/calendar"><CalendarDays /></Link></Button>
-            <Button variant="ghost" size="icon" aria-label="Sign out" onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }}><LogOut /></Button>
-          </div>
-        </div>
-      </header>
+    <div className="font-ui text-ink">
+      <section className="relative h-32 rounded-t-md bg-secondary sm:h-40" aria-label="Profile cover" />
 
-      <section className="relative h-32 bg-secondary sm:h-40" aria-label="Profile cover" />
 
       <section className="border-b bg-background pb-0">
         <div className="mx-auto max-w-5xl px-5">
