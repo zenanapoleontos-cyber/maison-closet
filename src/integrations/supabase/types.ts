@@ -47,6 +47,59 @@ export type Database = {
         }
         Relationships: []
       }
+      marketplace_listings: {
+        Row: {
+          clothing_item_id: string
+          condition: string
+          created_at: string
+          currency: string
+          description: string
+          id: string
+          image_path: string
+          price: number
+          seller_id: string
+          size: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          clothing_item_id: string
+          condition?: string
+          created_at?: string
+          currency?: string
+          description?: string
+          id?: string
+          image_path: string
+          price: number
+          seller_id: string
+          size?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          clothing_item_id?: string
+          condition?: string
+          created_at?: string
+          currency?: string
+          description?: string
+          id?: string
+          image_path?: string
+          price?: number
+          seller_id?: string
+          size?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_listings_clothing_item_id_fkey"
+            columns: ["clothing_item_id"]
+            isOneToOne: true
+            referencedRelation: "clothing_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       outfit_schedule: {
         Row: {
           created_at: string
