@@ -1,0 +1,1 @@
+CREATE POLICY "Public listing image read" ON storage.objects FOR SELECT TO anon USING (bucket_id = 'marketplace' AND EXISTS (SELECT 1 FROM public.marketplace_listings l WHERE l.image_path = name AND l.status = 'active'));

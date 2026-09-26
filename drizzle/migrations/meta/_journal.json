@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790417404581,
+      "tag": "0000_create_marketplace_listings",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790417429032,
+      "tag": "0001_marketplace_image_read_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790417438754,
+      "tag": "0002_marketplace_public_image_read",
+      "breakpoints": true
+    }
+  ]
+}

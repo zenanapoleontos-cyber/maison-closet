@@ -1,0 +1,1 @@
+CREATE POLICY "Marketplace listing image read" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'marketplace' AND (auth.uid()::text = (storage.foldername(name))[1] OR EXISTS (SELECT 1 FROM public.marketplace_listings l WHERE l.image_path = name AND l.status = 'active')));
